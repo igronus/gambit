@@ -34,6 +34,18 @@ DEVICES='a:2:{s:7:"DEVICE1";s:37:"http://your-domain.ru/emulate?device1";s:7:"DE
 
 NB: internal `php artisan serve` won't work while accessing `http://127.0.0.1:8000/emulate` by `file_get_contents()` function. So use real web server in this case.
 
+### Frontend developing
+
+Run `npm ci` to install dependencies and `npm run dev` to build public/js/app.js.
+
+If it doesn't work, check you have latest stable npm and node installed and do the following:
+
+```
+rm -rf node_modules package-lock.json
+npm cache clear --force
+npm install
+```
+
 ## Task
 
 <details>
