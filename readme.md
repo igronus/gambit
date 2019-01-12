@@ -1,5 +1,13 @@
 # Gambit challenge
 
+## Summary
+
+Here is solution for the Gambit test task. It's original text is located below.
+
+This project runs on laravel 5.5 on the backend and vue.js 2.5 on the frontend.
+
+Live demo is available at: http://gambit.pellinen.ru/
+
 ## Installation
 
 ```
@@ -31,6 +39,8 @@ And put it into your .env file:
 ```
 DEVICES='a:2:{s:7:"DEVICE1";s:37:"http://your-domain.ru/emulate?device1";s:7:"DEVICE2";s:37:"http://your-domain.ru/emulate?device2";}'
 ```
+
+Command `php artisan config:cache` may need to be executed to clear application configuration cache.
 
 NB: internal `php artisan serve` won't work while accessing `http://127.0.0.1:8000/emulate` by `file_get_contents()` function. So use real web server in this case.
 
