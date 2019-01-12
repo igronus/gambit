@@ -1,5 +1,39 @@
 # Gambit challenge
 
+## Installation
+
+```
+git clone git@github.com:igronus/gambit.git
+cd gambit
+composer install
+chown -R www-data:www-data storage
+cp .env.example .env
+php artisan cache:clear
+php artisan key:generate
+```
+
+After that set up web-server to serve laravel or just run `php artisan serve`.
+
+### Devices emulation  
+
+If you want to emulate devices, generate serialized array like this:
+
+```
+$devices = [
+    'DEVICE1' => 'http://your-domain.ru/emulate?device1',
+    'DEVICE2' => 'http://your-domain.ru/emulate?device2',
+];
+serialize($devices);
+```
+
+And put it into your .env file:
+
+```
+DEVICES='a:2:{s:7:"DEVICE1";s:37:"http://your-domain.ru/emulate?device1";s:7:"DEVICE2";s:37:"http://your-domain.ru/emulate?device2";}'
+```
+
+NB: internal `php artisan serve` won't work while accessing `http://127.0.0.1:8000/emulate` by `file_get_contents()` function. So use real web server in this case.
+
 ## Task
 
 <details>
