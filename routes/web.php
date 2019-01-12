@@ -11,5 +11,8 @@
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
 Route::get('/data', 'AppController@fetchData');
 Route::get('/emulate', 'AppController@emulateData');

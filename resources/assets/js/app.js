@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Vuex = require('vuex');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,8 +16,47 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('gambit', require('./components/Gambit.vue'));
+
+Vue.use(Vuex);
+const store = new Vuex.Store({
+    state: {
+        devices: [
+        ]
+    },
+    mutations: {
+        clear (state) {
+            state.devices = [];
+            console.log('Store cleared.');
+        },
+
+        populate() {
+            axios.get('/data')
+                .then(response => {
+                    if (response.data.status === false) {
+                        alert(response.data.data);
+                        return false;
+                    }
+
+                    for(var propertyName in response.data) {
+                        this.state.devices = this.state.devices.concat(
+                            response.data[propertyName]
+                        );
+                    }
+
+                    console.log(response.data);
+                    return true;
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
+
+            console.log('Store populated.');
+        }
+    }
+});
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });

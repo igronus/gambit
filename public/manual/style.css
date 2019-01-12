@@ -1,0 +1,45 @@
+body {
+    padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}
+
+
+.spaced * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.full-width * {
+    text-align: center;
+    width: 100%;
+}
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 75px 0 75px;
+    padding: 25px;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow:hidden;
+}
+
+
+body {
+    background-color: #F5F5F5;
+    margin: 75px 0 75px;
+    padding: 25px;
+}
