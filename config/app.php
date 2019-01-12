@@ -228,4 +228,5 @@ return [
 
     ],
 
+    'devices' => env('DEVICES', ''),
 ];
