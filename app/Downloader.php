@@ -16,6 +16,13 @@ class Downloader implements DownloaderInterface
     }
 
 
+    private $cacher;
+
+    public function setCacher(CacherInterface $c) {
+        $this->cacher = $c;
+    }
+
+
     /**
      * Downloading data.
      *
@@ -28,11 +35,25 @@ class Downloader implements DownloaderInterface
         }
 
 
+        if ($this->cacher) {
+            $key = sprintf('url_%s', $this->url);
+
+            if ($this->cacher->get($key) !== null) {
+                return $this->cacher->get($key);
+            }
+        }
+
+
         // TODO: check if '200 Ok' here
         $content = @file_get_contents($this->url);
 
         if ( ! $content) {
             throw new \Exception(sprintf('Downloader: No content at %s', $this->url));
+        }
+
+
+        if ($this->cacher) {
+            $this->cacher->put($key, $content);
         }
 
 

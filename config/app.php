@@ -229,4 +229,6 @@ return [
     ],
 
     'devices' => env('DEVICES', ''),
+    'cache' => env('DOWNLOADER_CACHE', false),
+    'cache_timeout' => env('DOWNLOADER_CACHE_TIMEOUT', 5),
 ];

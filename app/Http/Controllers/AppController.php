@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cacher;
 use App\Downloader;
 use App\GambitService;
 use App\Response;
@@ -32,6 +33,11 @@ class AppController extends Controller
             $s = new GambitService();
 
             $d = new Downloader();
+            if (config('app.cache')) {
+                $c = new Cacher(config('app.cache_timeout'));
+                $d->setCacher($c);
+
+            }
             $s->setDownloader($d);
 
             $data = $s->getData($devices);
