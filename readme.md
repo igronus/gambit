@@ -44,6 +44,15 @@ Command `php artisan config:cache` may need to be executed to clear application 
 
 NB: internal `php artisan serve` won't work while accessing `http://127.0.0.1:8000/emulate` by `file_get_contents()` function. So use real web server in this case.
 
+### Downloader cache
+
+If you want to increase/decrease number of requests to data feeds tune up downloader cache params in your .env file:
+
+```
+DOWNLOADER_CACHE=true
+DOWNLOADER_CACHE_TIMEOUT=5
+```
+
 ### Frontend developing
 
 Run `npm ci` to install dependencies and `npm run dev` to build public/js/app.js.
