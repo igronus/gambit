@@ -38,11 +38,14 @@ const store = new Vuex.Store({
                         return false;
                     }
 
-                    for(var propertyName in response.data) {
-                        this.state.devices = this.state.devices.concat(
-                            response.data[propertyName]
-                        );
+                    if ( ! response.data) {
+                        alert('No data in response');
+                        return false;
                     }
+
+                    this.state.devices = this.state.devices.concat(
+                        response.data
+                    );
 
                     console.log(response.data);
                     return true;

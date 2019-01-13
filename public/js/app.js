@@ -1652,6 +1652,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -32222,7 +32223,9 @@ var render = function() {
       _vm._l(this.$store.state.devices, function(device) {
         return _c("div", { staticClass: "col-lg-6 spaced" }, [
           _c("div", { staticClass: "card" }, [
-            _vm._v("\n                " + _vm._s(device) + "\n            ")
+            _c("h2", [_vm._v(_vm._s(device.name))]),
+            _vm._v(" "),
+            _c("pre", [_vm._v(_vm._s(device.rawData))])
           ])
         ])
       }),
@@ -44379,9 +44382,12 @@ var store = new Vuex.Store({
                     return false;
                 }
 
-                for (var propertyName in response.data) {
-                    _this.state.devices = _this.state.devices.concat(response.data[propertyName]);
+                if (!response.data) {
+                    alert('No data in response');
+                    return false;
                 }
+
+                _this.state.devices = _this.state.devices.concat(response.data);
 
                 console.log(response.data);
                 return true;

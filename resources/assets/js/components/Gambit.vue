@@ -7,7 +7,8 @@
         <div class="row">
             <div class="col-lg-6 spaced" v-for="device in this.$store.state.devices">
                 <div class="card">
-                    {{ device }}
+                    <h2>{{ device.name }}</h2>
+                    <pre>{{ device.rawData }}</pre>
                 </div>
             </div>
         </div>

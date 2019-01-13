@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Response;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,16 +23,24 @@ class AppController extends Controller
      */
     public function fetchData(Request $request)
     {
-        $devices = unserialize(config('app.devices'));
+        try {
+            $devices = unserialize(config('app.devices'));
 
 
-        $response = new \stdClass();
+            $data = [];
 
-        foreach ($devices as $key => $device) {
-            $response->$key = file_get_contents($device);
+            foreach ($devices as $key => $device) {
+                $d = new \stdClass();
+                $d->name = $key;
+                $d->rawData = file_get_contents($device);
+
+                $data[] = $d;
+            }
+        } catch (\Exception $e) {
+            return new Response(false, $e->getMessage());
         }
 
-        return json_encode($response);
+        return new Response(true, $data);
     }
 
     /**
