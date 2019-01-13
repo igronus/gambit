@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Downloader;
+use App\GambitService;
 use App\Response;
 
 use Carbon\Carbon;
@@ -27,15 +29,12 @@ class AppController extends Controller
             $devices = unserialize(config('app.devices'));
 
 
-            $data = [];
+            $s = new GambitService();
 
-            foreach ($devices as $key => $device) {
-                $d = new \stdClass();
-                $d->name = $key;
-                $d->rawData = file_get_contents($device);
+            $d = new Downloader();
+            $s->setDownloader($d);
 
-                $data[] = $d;
-            }
+            $data = $s->getData($devices);
         } catch (\Exception $e) {
             return new Response(false, $e->getMessage());
         }
