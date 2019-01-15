@@ -21,7 +21,11 @@ class TUF2000M implements \JsonSerializable
     private $jsonAttributes = [
         'name',
         'model',
-        'rawData'
+
+        'rawData',
+
+        'datetime',
+        'registers',
     ];
 
     public function jsonSerialize()

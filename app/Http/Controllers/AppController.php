@@ -7,6 +7,7 @@ use App\Downloader;
 use App\GambitService;
 use App\Response;
 
+use App\TextParser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,9 @@ class AppController extends Controller
 
             }
             $s->setDownloader($d);
+
+            $t = new TextParser();
+            $s->setParser($t);
 
             $data = $s->getData($devices);
         } catch (\Exception $e) {
