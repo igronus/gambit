@@ -26,8 +26,7 @@ class GambitService implements ServiceInterface
         $data = [];
 
         foreach ($devices as $name => $url) {
-            $d = new \stdClass();
-            $d->name = $name;
+            $d = new TUF2000M($name);
             $this->downloader->setUrl($url);
             $d->rawData = $this->downloader->download();
 
