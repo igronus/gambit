@@ -35,8 +35,8 @@ class Converter
 
         $hex = base_convert($binary_string, 2, 16);
 
-        if (strlen($hex) < $bytes) {
-            $hex = str_repeat('0', $bytes - strlen($hex)) . $hex;
+        if (strlen($hex) < $bytes*2) {
+            $hex = str_repeat('0', $bytes*2 - strlen($hex)) . $hex;
         }
 
 
