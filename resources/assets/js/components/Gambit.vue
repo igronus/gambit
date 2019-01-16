@@ -1,10 +1,20 @@
 <template>
     <div>
+        <button v-if="this.$store.state.paused" v-on:click="runOnce()">
+            Run once
+        </button>
+        <button v-if="this.$store.state.paused" v-on:click="play()">
+            Play (will update every {{ this.$store.state.intervalValue / 1000 }} seconds)
+        </button>
+        <button v-if="!this.$store.state.paused" v-on:click="pause()">
+            Pause
+        </button>
+
         <div class="row">
             <div class="col-lg-6 spaced" v-for="device in this.$store.state.devices">
                 <div class="card">
                     <h2>{{ device.name }}</h2>
-                    <i>{{ device.model }}</i>
+                    <i>{{ device.model }}</i>&nbsp;[{{ device.datetime }}]
                     <hr>
                     <div v-for="data in device.data">
                         <h3>{{ data.name }}</h3>
@@ -22,10 +32,6 @@
                 </div>
             </div>
         </div>
-
-        <button v-on:click="clear_and_populate()">Clear and populate</button>
-        <button v-on:click="populate()">Populate</button>
-        <button v-on:click="clear()">Clear</button>
     </div>
 </template>
 
@@ -36,16 +42,17 @@
         },
 
         methods: {
-            clear() {
-                this.$store.commit('clear');
+            play() {
+                this.$store.commit('play');
             },
-            clear_and_populate() {
+            pause() {
+                this.$store.commit('pause');
+            },
+
+            runOnce() {
                 this.$store.commit('clear');
                 this.$store.commit('populate');
             },
-            populate() {
-                this.$store.commit('populate');
-            }
         }
     }
 </script>

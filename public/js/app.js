@@ -1667,6 +1667,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -1675,14 +1681,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        clear: function clear() {
-            this.$store.commit('clear');
+        play: function play() {
+            this.$store.commit('play');
         },
-        clear_and_populate: function clear_and_populate() {
-            this.$store.commit('clear');
-            this.$store.commit('populate');
+        pause: function pause() {
+            this.$store.commit('pause');
         },
-        populate: function populate() {
+        runOnce: function runOnce() {
+            this.$store.commit('clear');
             this.$store.commit('populate');
         }
     }
@@ -32195,6 +32201,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    this.$store.state.paused
+      ? _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                _vm.runOnce()
+              }
+            }
+          },
+          [_vm._v("\n        Run once\n    ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    this.$store.state.paused
+      ? _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                _vm.play()
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n        Play (will update every " +
+                _vm._s(this.$store.state.intervalValue / 1000) +
+                " seconds)\n    "
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !this.$store.state.paused
+      ? _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                _vm.pause()
+              }
+            }
+          },
+          [_vm._v("\n        Pause\n    ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
@@ -32207,7 +32261,7 @@ var render = function() {
               _c("h2", [_vm._v(_vm._s(device.name))]),
               _vm._v(" "),
               _c("i", [_vm._v(_vm._s(device.model))]),
-              _vm._v(" "),
+              _vm._v(" [" + _vm._s(device.datetime) + "]\n                "),
               _c("hr"),
               _vm._v(" "),
               _vm._l(device.data, function(data) {
@@ -32237,42 +32291,6 @@ var render = function() {
         ])
       }),
       0
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            _vm.clear_and_populate()
-          }
-        }
-      },
-      [_vm._v("Clear and populate")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            _vm.populate()
-          }
-        }
-      },
-      [_vm._v("Populate")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            _vm.clear()
-          }
-        }
-      },
-      [_vm._v("Clear")]
     )
   ])
 }
@@ -44409,9 +44427,30 @@ Vue.component('gambit', __webpack_require__("./resources/assets/js/components/Ga
 Vue.use(Vuex);
 var store = new Vuex.Store({
     state: {
-        devices: []
+        devices: [],
+
+        paused: true,
+        interval: null,
+
+        intervalValue: 5000
     },
+
     mutations: {
+        play: function play() {
+            this.state.paused = false;
+
+            this.commit('clear');
+            this.commit('populate');
+
+            this.state.interval = setInterval(function () {
+                this.commit('clear');
+                this.commit('populate');
+            }.bind(this), this.state.intervalValue);
+        },
+        pause: function pause() {
+            this.state.paused = true;
+            clearInterval(this.state.interval);
+        },
         clear: function clear(state) {
             state.devices = [];
             console.log('Store cleared.');

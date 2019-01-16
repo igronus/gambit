@@ -22,9 +22,33 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         devices: [
-        ]
+        ],
+
+        paused: true,
+        interval: null,
+
+        intervalValue: 5000,
     },
+
     mutations: {
+        play() {
+            this.state.paused = false;
+
+            this.commit('clear');
+            this.commit('populate');
+
+            this.state.interval = setInterval(function () {
+                this.commit('clear');
+                this.commit('populate');
+            }.bind(this), this.state.intervalValue);
+        },
+
+        pause() {
+            this.state.paused = true;
+            clearInterval(this.state.interval);
+        },
+
+
         clear (state) {
             state.devices = [];
             console.log('Store cleared.');
@@ -56,7 +80,7 @@ const store = new Vuex.Store({
 
             console.log('Store populated.');
         }
-    }
+    },
 });
 
 const app = new Vue({
