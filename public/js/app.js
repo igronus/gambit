@@ -1653,6 +1653,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -32182,6 +32196,50 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(this.$store.state.devices, function(device) {
+        return _c("div", { staticClass: "col-lg-6 spaced" }, [
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _c("h2", [_vm._v(_vm._s(device.name))]),
+              _vm._v(" "),
+              _c("i", [_vm._v(_vm._s(device.model))]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _vm._l(device.data, function(data) {
+                return _c("div", [
+                  _c("h3", [_vm._v(_vm._s(data.name))]),
+                  _vm._v("\n                    " + _vm._s(data.value)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("details", [
+                    _c("summary", [_vm._v("binary")]),
+                    _vm._v(" "),
+                    _c("pre", [_vm._v(_vm._s(data.binaryString))])
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("details", [
+                _c("summary", [_vm._v("raw")]),
+                _vm._v(" "),
+                _c("pre", [_vm._v(_vm._s(device.rawData))])
+              ])
+            ],
+            2
+          )
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c(
       "button",
       {
         on: {
@@ -32215,21 +32273,6 @@ var render = function() {
         }
       },
       [_vm._v("Clear")]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(this.$store.state.devices, function(device) {
-        return _c("div", { staticClass: "col-lg-6 spaced" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("h2", [_vm._v(_vm._s(device.name))]),
-            _vm._v(" "),
-            _c("pre", [_vm._v(_vm._s(device.rawData))])
-          ])
-        ])
-      }),
-      0
     )
   ])
 }
