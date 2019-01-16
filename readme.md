@@ -235,3 +235,13 @@ Let's describe how it should process, step by step.
 ![binaries_sketch](https://github.com/igronus/gambit/blob/master/doc/binaries_sketch.jpg)
 
 The converter class is responsible for converting binaries into human-readable numbers. It uses binary string and it's internal type as arguments. See `app/Converter.php` file.
+
+## TODO
+
+```
+1. Be able to emulate file_get_contents() fails.
+2. More accurate (close to previous data) emulation.
+3. Show changes (mb colored) from previous data on frontend.
+4. Make frontend more smooth.
+5. Tests.
+```
