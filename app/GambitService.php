@@ -38,6 +38,7 @@ class GambitService implements ServiceInterface
             $d = new TUF2000M($name);
 
             $this->downloader->setUrl($url);
+            // TODO: be able return null data here if fails
             $d->rawData = $this->downloader->download();
 
             $parsedData = $this->parser->parse($d->rawData);

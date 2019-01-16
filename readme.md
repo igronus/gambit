@@ -207,6 +207,8 @@ npm install
 
 ## Architecture
 
+### How does it work
+
 You can see a sketch below.
 
 ![architecture_sketch](https://github.com/igronus/gambit/blob/master/doc/architecture_sketch.jpg)
@@ -227,3 +229,9 @@ Let's describe how it should process, step by step.
 8. Backend checks that there is actual data in cache and makes a response 
     to Client 3 due to it's permissions.
 ```
+
+### Binaries converting
+
+![binaries_sketch](https://github.com/igronus/gambit/blob/master/doc/binaries_sketch.jpg)
+
+The converter class is responsible for converting binaries into human-readable numbers. It uses binary string and it's internal type as arguments. See `app/Converter.php` file.
