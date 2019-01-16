@@ -9,6 +9,8 @@ namespace App;
  */
 class TUF2000M implements \JsonSerializable
 {
+    use JsonTrait;
+
     private $name = 'unknown';
     private $model = 'TUF-2000M';
 
@@ -26,18 +28,16 @@ class TUF2000M implements \JsonSerializable
 
         'datetime',
         'registers',
+
+        'data'
     ];
 
-    public function jsonSerialize()
+    private $jsonMethods = [
+        'rand',
+    ];
+
+    public function rand()
     {
-        $vars = get_object_vars($this);
-
-        foreach ($vars as $key => $var) {
-            if ( ! in_array($key, $this->jsonAttributes)) {
-                unset($vars[$key]);
-            }
-        }
-
-        return $vars;
+        $this->data = rand(0, 100);
     }
 }
