@@ -7,10 +7,8 @@ namespace App;
  *
  * @author igronus
  */
-class TUF2000M implements \JsonSerializable
+class TUF2000M extends ModbusDevice implements \JsonSerializable
 {
-    use JsonTrait;
-
     private $name = 'unknown';
     private $model = 'TUF-2000M';
 
@@ -19,6 +17,8 @@ class TUF2000M implements \JsonSerializable
         $this->name = $name;
     }
 
+
+    use JsonTrait;
 
     private $jsonAttributes = [
         'name',
@@ -33,11 +33,37 @@ class TUF2000M implements \JsonSerializable
     ];
 
     private $jsonMethods = [
-        'rand',
+        'parseData',
     ];
 
-    public function rand()
-    {
-        $this->data = rand(0, 100);
-    }
+
+    protected $dataSources = [
+        'energy' => [
+            'name' => 'Negative energy accumulator',
+            'registers' => [
+                '21:1',
+                '21:0',
+                '22:1',
+                '22:0',
+            ],
+            'type' => Converter::UINT32,
+        ],
+        'temperature' => [
+            'name' => 'Temperature #1/inlet',
+            'registers' => [
+                '34:0',
+                '34:1',
+                '33:0',
+                '33:1',
+            ],
+            'type' => Converter::FLOAT32,
+        ],
+        'signal' => [
+            'name' => 'Signal Quality',
+            'registers' => [
+                '92:1',
+            ],
+            'type' => Converter::INT8,
+        ],
+    ];
 }
