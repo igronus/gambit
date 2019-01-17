@@ -1,3 +1,21 @@
+
+Table of Contents
+=================
+
+   * [Gambit challenge](#gambit-challenge)
+      * [Summary](#summary)
+      * [Installation](#installation)
+         * [Devices emulation](#devices-emulation)
+         * [Downloader cache](#downloader-cache)
+         * [Frontend developing](#frontend-developing)
+      * [Task](#task)
+      * [Architecture](#architecture)
+         * [How does it work](#how-does-it-work)
+         * [Binaries converting](#binaries-converting)
+      * [TODO](#todo)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
 # Gambit challenge
 
 ## Summary
@@ -244,4 +262,5 @@ The converter class is responsible for converting binaries into human-readable n
 3. Show changes (mb colored) from previous data on frontend.
 4. Make frontend more smooth.
 5. Tests.
+6. Backend authorisation.
 ```
